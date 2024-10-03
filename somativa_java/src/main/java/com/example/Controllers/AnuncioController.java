@@ -16,6 +16,7 @@ import com.example.Models.Anuncio;
 
 public class AnuncioController {
     private static final String FILE_NAME = "Data/anuncios.txt";
+    private static final String IMG_DIRECTORY = "somativa_java/Data/Imgs"; // Diretório das imagens
     private List<Anuncio> anuncios;
 
     // Construtor
@@ -25,24 +26,37 @@ public class AnuncioController {
         carregarAnuncios();
     }
 
-    // Método para criar a pasta Data, se não existir
+    // Método para criar a pasta Data e a pasta Img, se não existirem
     private void criarDiretorio() {
         Path directoryPath = Paths.get("Data");
-        if (!Files.exists(directoryPath)) {
-            try {
+        Path imgDirectoryPath = Paths.get(IMG_DIRECTORY);
+        try {
+            if (!Files.exists(directoryPath)) {
                 Files.createDirectories(directoryPath);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            if (!Files.exists(imgDirectoryPath)) {
+                Files.createDirectories(imgDirectoryPath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     // Método para adicionar um anúncio
-    public void adicionarAnuncio(String titulo, String descricao, String imagem) {
+    public String adicionarAnuncio(String titulo, String descricao, String imagemPath) {
+        // Copiar a imagem para a nova pasta com o nome do título
+        String newImagePath = IMG_DIRECTORY + "/" + titulo + ".png"; // Supondo que as imagens sejam PNG
+        try {
+            Files.copy(Paths.get(imagemPath), Paths.get(newImagePath));
+        } catch (IOException e) {
+            return "Erro ao copiar a imagem: " + e.getMessage();
+        }
+
         Anuncio anuncio = new Anuncio(titulo, descricao);
-        anuncio.setImagem(imagem);
+        anuncio.setImagem(newImagePath);
         anuncios.add(anuncio);
         salvarAnuncios();
+        return "Anúncio adicionado com sucesso!";
     }
 
     // Método para salvar anúncios no arquivo

@@ -2,13 +2,13 @@ package com.example;
 
 import javax.swing.SwingUtilities;
 
-import com.example.Views.UsuarioView;
+import com.example.Views.AdminView;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            UsuarioView view = new UsuarioView();
-            view.setVisible(true);
+            AdminView adminView = new AdminView();
+            adminView.setVisible(true);
         });
     }
 }
