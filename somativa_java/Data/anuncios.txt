@@ -1,0 +1,2 @@
+funcionou,funcionou,somativa_java/Data/Imgs/funcionou.jpg
+a,a,somativa_java/Data/Imgs/a.jpg

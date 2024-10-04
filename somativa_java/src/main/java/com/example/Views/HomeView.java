@@ -10,16 +10,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import com.example.Controllers.UsuarioController;
 
-public class UsuarioView extends JFrame {
+public class HomeView extends JFrame {
     private UsuarioController usuarioController;
 
-    public UsuarioView() {
+    public HomeView() {
         usuarioController = new UsuarioController();
-        setTitle("Gerenciador de Usuários");
+        setTitle("Início");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
@@ -154,7 +153,7 @@ public class UsuarioView extends JFrame {
             String email = txtEmail.getText();
             String senha = new String(txtSenha.getPassword());
 
-            String mensagem = usuarioController.autenticarUsuario(email, senha);
+            String mensagem = usuarioController.autenticarAdmin(email, senha);
             JOptionPane.showMessageDialog(dialog, mensagem);
             if (mensagem.equals("Login bem-sucedido!")) {
                 dialog.dispose();
@@ -168,12 +167,5 @@ public class UsuarioView extends JFrame {
         dialog.add(btnLogin);
 
         dialog.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            UsuarioView view = new UsuarioView();
-            view.setVisible(true);
-        });
     }
 }

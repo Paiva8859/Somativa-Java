@@ -15,7 +15,7 @@ import java.util.List;
 import com.example.Models.Anuncio;
 
 public class AnuncioController {
-    private static final String FILE_NAME = "Data/anuncios.txt";
+    private static final String FILE_NAME = "somativa_java/Data/anuncios.txt";
     private static final String IMG_DIRECTORY = "somativa_java/Data/Imgs"; // Diretório das imagens
     private List<Anuncio> anuncios;
 
@@ -26,9 +26,9 @@ public class AnuncioController {
         carregarAnuncios();
     }
 
-    // Método para criar a pasta Data e a pasta Img, se não existirem
+    // Método para criar a pasta Data e a pasta Imgs, se não existirem
     private void criarDiretorio() {
-        Path directoryPath = Paths.get("Data");
+        Path directoryPath = Paths.get("somativa_java/Data");
         Path imgDirectoryPath = Paths.get(IMG_DIRECTORY);
         try {
             if (!Files.exists(directoryPath)) {
@@ -36,6 +36,12 @@ public class AnuncioController {
             }
             if (!Files.exists(imgDirectoryPath)) {
                 Files.createDirectories(imgDirectoryPath);
+            }
+            // Criar o arquivo de anúncios se não existir
+            File file = new File(FILE_NAME);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Cria diretórios se não existirem
+                file.createNewFile(); // Cria o arquivo
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,7 +51,7 @@ public class AnuncioController {
     // Método para adicionar um anúncio
     public String adicionarAnuncio(String titulo, String descricao, String imagemPath) {
         // Copiar a imagem para a nova pasta com o nome do título
-        String newImagePath = IMG_DIRECTORY + "/" + titulo + ".png"; // Supondo que as imagens sejam PNG
+        String newImagePath = IMG_DIRECTORY + "/" + titulo + ".jpg";
         try {
             Files.copy(Paths.get(imagemPath), Paths.get(newImagePath));
         } catch (IOException e) {
@@ -61,7 +67,8 @@ public class AnuncioController {
 
     // Método para salvar anúncios no arquivo
     private void salvarAnuncios() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+        File file = new File(FILE_NAME);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Anuncio anuncio : anuncios) {
                 writer.write(anuncio.getTitulo() + "," + anuncio.getDescricao() + "," + anuncio.getImagem());
                 writer.newLine();
