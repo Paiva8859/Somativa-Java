@@ -3,32 +3,32 @@ package com.example.Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Desgostos extends Preferencia{
-    List<String> desgostos = new ArrayList<>();
+public class Desgostos extends Preferencia {
+    private List<String> desgostos = new ArrayList<>();
 
     // Construtor
-    public Desgostos(String tag) {
-        super(tag);
+    public Desgostos() {
+        super(null);
     }
 
-    // Getters and setters
     public List<String> getDesgostos() {
         return desgostos;
     }
 
-    public void setDesgostos(List<String> desgostos) {
-        this.desgostos = desgostos;
+    @Override
+    public
+    void adicionarPreferencia(String tag) {
+        if (!desgostos.contains(tag)) {
+            desgostos.add(tag);
+            System.out.println("Desgosto adicionado: " + tag);
+        }
     }
 
-    // Overrides da superclasse
     @Override
-    void adicionarPreferencia() {
-        System.out.println("Chegou no método de adicionar desgosto"); // SOUT para teste
-    }
-
-    @Override
-    void removerPreferencia() {
-        System.out.println("Chegou no método de remover desgosto"); // SOUT para teste
+    public
+    void removerPreferencia(String tag) {
+        if (desgostos.remove(tag)) {
+            System.out.println("Desgosto removido: " + tag);
+        }
     }
 }
-

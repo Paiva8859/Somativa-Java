@@ -48,4 +48,8 @@ public class Anuncio {
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
+
+    public String getTagsAsString() {
+        return String.join("|", tags); // Junta as tags com "|"
+    }
 }

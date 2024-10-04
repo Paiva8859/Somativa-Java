@@ -1,0 +1,2 @@
+UsuarioTeste,|a|b|d
+UsuarioTeste2,a|b|c|d

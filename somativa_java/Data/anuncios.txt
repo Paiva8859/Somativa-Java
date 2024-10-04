@@ -1,2 +1,3 @@
-funcionou,funcionou,somativa_java/Data/Imgs/funcionou.jpg
-a,a,somativa_java/Data/Imgs/a.jpg
+a,a,somativa_java/Data/Imgs/a.jpg,a|b|c|d
+b,b,somativa_java/Data/Imgs/b.jpg,a|b|c|d|e
+c,c,somativa_java/Data/Imgs/c.jpg,c

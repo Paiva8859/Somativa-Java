@@ -3,6 +3,7 @@ package com.example.Views;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -27,16 +28,14 @@ public class AdminView extends JFrame {
         setLayout(new FlowLayout());
 
         JButton btnAdicionarAnuncio = new JButton("Adicionar Anúncio");
-
         btnAdicionarAnuncio.addActionListener(e -> abrirJanelaAdicionarAnuncio());
-
         add(btnAdicionarAnuncio);
     }
 
     private void abrirJanelaAdicionarAnuncio() {
         JDialog dialog = new JDialog(this, "Adicionar Anúncio", true);
-        dialog.setSize(300, 250);
-        dialog.setLayout(new GridLayout(5, 2));
+        dialog.setSize(300, 300); // Aumentando o tamanho da janela
+        dialog.setLayout(new GridLayout(6, 2)); // Aumentando para 6 linhas
 
         JLabel lblTitulo = new JLabel("Título:");
         JTextField txtTitulo = new JTextField();
@@ -44,6 +43,8 @@ public class AdminView extends JFrame {
         JTextArea txtDescricao = new JTextArea();
         JLabel lblImagem = new JLabel("Imagem:");
         JButton btnSelecionarImagem = new JButton("Selecionar Imagem");
+        JLabel lblTags = new JLabel("Tags (separadas por vírgula):");
+        JTextField txtTags = new JTextField(); // Novo campo para tags
         JButton btnAdicionar = new JButton("Adicionar");
 
         // Variável para armazenar o caminho da imagem selecionada
@@ -62,9 +63,10 @@ public class AdminView extends JFrame {
         btnAdicionar.addActionListener(e -> {
             String titulo = txtTitulo.getText();
             String descricao = txtDescricao.getText();
+            List<String> tags = List.of(txtTags.getText().split(",")); // Obtém as tags
 
             // Adicionar o anúncio usando o controller
-            String mensagem = anuncioController.adicionarAnuncio(titulo, descricao, imagemPath[0]);
+            String mensagem = anuncioController.adicionarAnuncio(titulo, descricao, imagemPath[0], tags);
             JOptionPane.showMessageDialog(dialog, mensagem);
             dialog.dispose();
         });
@@ -75,6 +77,8 @@ public class AdminView extends JFrame {
         dialog.add(new JScrollPane(txtDescricao));
         dialog.add(lblImagem);
         dialog.add(btnSelecionarImagem);
+        dialog.add(lblTags);
+        dialog.add(txtTags); // Adiciona o campo para tags
         dialog.add(btnAdicionar);
 
         dialog.setVisible(true);

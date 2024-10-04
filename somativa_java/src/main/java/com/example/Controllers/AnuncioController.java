@@ -49,7 +49,7 @@ public class AnuncioController {
     }
 
     // Método para adicionar um anúncio
-    public String adicionarAnuncio(String titulo, String descricao, String imagemPath) {
+    public String adicionarAnuncio(String titulo, String descricao, String imagemPath, List<String> tags) {
         // Copiar a imagem para a nova pasta com o nome do título
         String newImagePath = IMG_DIRECTORY + "/" + titulo + ".jpg";
         try {
@@ -60,6 +60,7 @@ public class AnuncioController {
 
         Anuncio anuncio = new Anuncio(titulo, descricao);
         anuncio.setImagem(newImagePath);
+        anuncio.setTags(tags); // Adiciona as tags ao anúncio
         anuncios.add(anuncio);
         salvarAnuncios();
         return "Anúncio adicionado com sucesso!";
@@ -70,7 +71,7 @@ public class AnuncioController {
         File file = new File(FILE_NAME);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Anuncio anuncio : anuncios) {
-                writer.write(anuncio.getTitulo() + "," + anuncio.getDescricao() + "," + anuncio.getImagem());
+                writer.write(anuncio.getTitulo() + "," + anuncio.getDescricao() + "," + anuncio.getImagem() + "," + anuncio.getTagsAsString());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -89,10 +90,20 @@ public class AnuncioController {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] dados = linha.split(",");
-                if (dados.length == 3) {
+                if (dados.length >= 3) { // Verifica se há pelo menos 3 campos
                     Anuncio anuncio = new Anuncio(dados[0], dados[1]);
                     anuncio.setImagem(dados[2]);
+                    
+                    // Verifica se há tags e adiciona
+                    if (dados.length > 3) {
+                        List<String> tags = List.of(dados[3].split("\\|")); // Divide as tags por "|"
+                        anuncio.setTags(tags);
+                    }
+                    
                     anuncios.add(anuncio);
+                    System.out.println("Anúncio carregado: " + anuncio.getTitulo()); // Printa o título do anúncio
+                } else {
+                    System.out.println("Linha inválida: " + linha); // Printa linhas que não estão corretas
                 }
             }
         } catch (IOException e) {

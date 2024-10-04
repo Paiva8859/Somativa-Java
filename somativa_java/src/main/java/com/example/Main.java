@@ -18,7 +18,8 @@ public class Main {
         });
 
         SwingUtilities.invokeLater(() -> {
-            AnunciosView anunciosView = new AnunciosView();
+            String usuario = "UsuarioTeste"; 
+            AnunciosView anunciosView = new AnunciosView(usuario);
             anunciosView.setVisible(true);
         });
     }

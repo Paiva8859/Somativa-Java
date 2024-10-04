@@ -18,7 +18,6 @@ public abstract class Preferencia {
     }
 
     // Métodos abstratos
-    abstract void adicionarPreferencia();
-
-    abstract void removerPreferencia();
+    abstract void adicionarPreferencia(String tag);
+    abstract void removerPreferencia(String tag);
 }
