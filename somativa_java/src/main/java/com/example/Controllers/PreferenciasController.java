@@ -50,6 +50,14 @@ public class PreferenciasController {
         return anuncios;
     }
 
+    public List<String> getGostos() {
+        return gostos.getGostos();
+    }
+
+    public List<String> getDesgostos() {
+        return desgostos.getDesgostos();
+    }
+
     private void salvarPreferencias() {
         List<String> linhasGostos = carregarPreferenciasExistentes("somativa_java/Data/gostos.txt");
         List<String> linhasDesgostos = carregarPreferenciasExistentes("somativa_java/Data/desgostos.txt");

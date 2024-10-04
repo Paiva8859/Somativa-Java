@@ -8,6 +8,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,8 +32,9 @@ public class AnunciosView extends JFrame {
     private int currentIndex = 0;
     private Timer visualizacaoTimer;
     private boolean visualizacaoConcluida = false;
+    private List<Anuncio> anunciosFiltrados; // Lista filtrada de anúncios
 
-    public AnunciosView(String usuario) { // Adiciona parâmetro para nome do usuário
+    public AnunciosView(String usuario) {
         // Configurações da janela
         setTitle("Exibição de Anúncio");
         setSize(600, 400);
@@ -38,11 +42,18 @@ public class AnunciosView extends JFrame {
         setLayout(new BorderLayout());
 
         anuncioController = new AnuncioController();
-        preferenciasController = new PreferenciasController(anuncioController.getAnuncios(), usuario); // Passa o usuário
+        preferenciasController = new PreferenciasController(anuncioController.getAnuncios(), usuario);
+
         System.out.println("Total de anúncios carregados: " + anuncioController.getAnuncios().size());
 
+        // Inicializa o cardLayout e cardPanel
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
+        add(cardPanel, BorderLayout.CENTER); // Adiciona o cardPanel à janela
+
+        // Filtra os anúncios inicialmente
+        anunciosFiltrados = filtrarAnuncios(anuncioController.getAnuncios(), preferenciasController);
+        atualizarCardPanel(); // Atualiza o painel com os anúncios filtrados
 
         // Botões para navegar pelos anúncios
         JButton nextButton = new JButton("Próximo");
@@ -52,19 +63,19 @@ public class AnunciosView extends JFrame {
 
         // Ação do botão próximo
         nextButton.addActionListener(e -> {
-            currentIndex = (currentIndex + 1) % anuncioController.getAnuncios().size();
+            currentIndex = (currentIndex + 1) % anunciosFiltrados.size();
             updateCard();
         });
 
         // Ação do botão anterior
         prevButton.addActionListener(e -> {
-            currentIndex = (currentIndex - 1 + anuncioController.getAnuncios().size()) % anuncioController.getAnuncios().size();
+            currentIndex = (currentIndex - 1 + anunciosFiltrados.size()) % anunciosFiltrados.size();
             updateCard();
         });
 
         // Ação do botão "Saber Mais"
         saberMaisButton.addActionListener(e -> {
-            Anuncio anuncio = anuncioController.getAnuncios().get(currentIndex);
+            Anuncio anuncio = anunciosFiltrados.get(currentIndex);
             mostrarDetalhes(anuncio);
             preferenciasController.manipularTags("subir", anuncio.getTags());
             resetTimer();
@@ -72,7 +83,7 @@ public class AnunciosView extends JFrame {
 
         // Ação do botão "Não Tenho Interesse"
         naoInteresseButton.addActionListener(e -> {
-            Anuncio anuncio = anuncioController.getAnuncios().get(currentIndex);
+            Anuncio anuncio = anunciosFiltrados.get(currentIndex);
             preferenciasController.manipularTags("descer", anuncio.getTags());
             resetTimer();
         });
@@ -85,18 +96,10 @@ public class AnunciosView extends JFrame {
         buttonPanel.add(naoInteresseButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Adiciona todos os anúncios ao cardPanel
-        for (Anuncio anuncio : anuncioController.getAnuncios()) {
-            cardPanel.add(createAnuncioPanel(anuncio), anuncio.getTitulo());
-        }
-
-        add(cardPanel, BorderLayout.CENTER);
-        updateCard(); // Exibe o primeiro anúncio
-
         // Configura o Timer para 5 segundos
         visualizacaoTimer = new Timer(5000, e -> {
             if (!visualizacaoConcluida) {
-                Anuncio anuncio = anuncioController.getAnuncios().get(currentIndex);
+                Anuncio anuncio = anunciosFiltrados.get(currentIndex);
                 preferenciasController.manipularTags("subir", anuncio.getTags());
             }
         });
@@ -106,6 +109,50 @@ public class AnunciosView extends JFrame {
         // Configura a janela para ser visível
         setLocationRelativeTo(null); // Centraliza a janela
         setVisible(true);
+    }
+
+    private List<Anuncio> filtrarAnuncios(List<Anuncio> anuncios, PreferenciasController preferencias) {
+        List<Anuncio> comGostos = new ArrayList<>();
+        List<Anuncio> semGostos = new ArrayList<>();
+
+        for (Anuncio anuncio : anuncios) {
+            boolean temTagEmGostos = anuncio.getTags().stream().anyMatch(tag -> preferencias.getGostos().contains(tag));
+            boolean temTagEmDesgostos = anuncio.getTags().stream().allMatch(tag -> preferencias.getDesgostos().contains(tag));
+
+            if (temTagEmDesgostos) {
+                continue; // Exclui anúncios com todas as tags em desgostos
+            }
+
+            if (temTagEmGostos) {
+                comGostos.add(anuncio); // Anúncios que têm pelo menos uma tag em gostos
+            } else {
+                semGostos.add(anuncio); // Anúncios que não têm tags em gostos
+            }
+        }
+
+        List<Anuncio> anunciosFiltrados = new ArrayList<>();
+
+        // Adiciona 66% dos anúncios com gostos
+        int quantidadeComGostos = (int) Math.ceil(comGostos.size() * 0.66);
+        Collections.shuffle(comGostos); // Embaralha a lista de anúncios com gostos
+        anunciosFiltrados.addAll(comGostos.subList(0, Math.min(quantidadeComGostos, comGostos.size())));
+
+        // Adiciona 33% dos anúncios sem gostos
+        int quantidadeSemGostos = (int) Math.ceil(semGostos.size() * 0.33);
+        Collections.shuffle(semGostos); // Embaralha a lista de anúncios sem gostos
+        anunciosFiltrados.addAll(semGostos.subList(0, Math.min(quantidadeSemGostos, semGostos.size())));
+
+        return anunciosFiltrados; // Retorna a lista filtrada
+    }
+
+    private void atualizarCardPanel() {
+        cardPanel.removeAll(); // Limpa o painel existente
+        for (Anuncio anuncio : anunciosFiltrados) {
+            cardPanel.add(createAnuncioPanel(anuncio), anuncio.getTitulo());
+        }
+        updateCard(); // Exibe o primeiro anúncio
+        cardPanel.revalidate(); // Revalida o painel após a atualização
+        cardPanel.repaint(); // Repinta o painel
     }
 
     private JPanel createAnuncioPanel(Anuncio anuncio) {
@@ -159,9 +206,9 @@ public class AnunciosView extends JFrame {
     }
 
     private void updateCard() {
-        if (!anuncioController.getAnuncios().isEmpty()) {
+        if (!anunciosFiltrados.isEmpty()) {
             visualizacaoConcluida = false; // Reinicia o estado de visualização
-            cardLayout.show(cardPanel, anuncioController.getAnuncios().get(currentIndex).getTitulo());
+            cardLayout.show(cardPanel, anunciosFiltrados.get(currentIndex).getTitulo());
         }
     }
 

@@ -1,2 +1,2 @@
-UsuarioTeste,|a|b|d
+UsuarioTeste,|a|b|d|c|e
 UsuarioTeste2,a|b|c|d
