@@ -2,3 +2,4 @@ a,a,somativa_java/Data/Imgs/a.jpg,a|b|c|d
 b,b,somativa_java/Data/Imgs/b.jpg,a|b|c|d|e
 c,c,somativa_java/Data/Imgs/c.jpg,c
 teste de desgosto,teste de desgosto	,somativa_java/Data/Imgs/teste de desgosto.jpg,teste de desgosto
+teste tempo,a,somativa_java/Data/Imgs/teste tempo.jpg,teste tempo

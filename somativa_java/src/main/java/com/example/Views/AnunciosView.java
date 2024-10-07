@@ -42,7 +42,7 @@ public class AnunciosView extends JFrame {
         setLayout(new BorderLayout());
 
         anuncioController = new AnuncioController();
-        preferenciasController = new PreferenciasController(anuncioController.getAnuncios(), usuario);
+        preferenciasController = new PreferenciasController(anuncioController.getAnuncios(), this, usuario); // Passando a view
 
         System.out.println("Total de anúncios carregados: " + anuncioController.getAnuncios().size());
 
@@ -65,12 +65,14 @@ public class AnunciosView extends JFrame {
         nextButton.addActionListener(e -> {
             currentIndex = (currentIndex + 1) % anunciosFiltrados.size();
             updateCard();
+            resetTimer();
         });
 
         // Ação do botão anterior
         prevButton.addActionListener(e -> {
             currentIndex = (currentIndex - 1 + anunciosFiltrados.size()) % anunciosFiltrados.size();
             updateCard();
+            resetTimer();
         });
 
         // Ação do botão "Saber Mais"
@@ -109,6 +111,12 @@ public class AnunciosView extends JFrame {
         // Configura a janela para ser visível
         setLocationRelativeTo(null); // Centraliza a janela
         setVisible(true);
+    }
+
+    // Método para recarregar anúncios com base nas preferências
+    public void recarregarAnuncios() {
+        anunciosFiltrados = filtrarAnuncios(anuncioController.getAnuncios(), preferenciasController);
+        atualizarCardPanel(); // Atualiza o painel com os novos anúncios filtrados
     }
 
     private List<Anuncio> filtrarAnuncios(List<Anuncio> anuncios, PreferenciasController preferencias) {

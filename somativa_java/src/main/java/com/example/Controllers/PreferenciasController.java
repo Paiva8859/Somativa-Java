@@ -11,16 +11,19 @@ import java.util.List;
 import com.example.Models.Anuncio;
 import com.example.Models.Desgostos;
 import com.example.Models.Gostos;
+import com.example.Views.AnunciosView; // Importando a view
 
 public class PreferenciasController {
     private List<Anuncio> anuncios;
     private Gostos gostos;
     private Desgostos desgostos;
     private String usuario; // Nome do usuário
+    private AnunciosView anunciosView; // Nova variável
 
-    public PreferenciasController(List<Anuncio> anuncios, String usuario) {
+    public PreferenciasController(List<Anuncio> anuncios, AnunciosView anunciosView, String usuario) {
         this.anuncios = anuncios;
         this.usuario = usuario;
+        this.anunciosView = anunciosView; // Inicializa a view
         this.gostos = new Gostos();
         this.desgostos = new Desgostos();
         carregarPreferencias(); // Carrega as preferências ao iniciar
@@ -44,6 +47,7 @@ public class PreferenciasController {
             }
         }
         salvarPreferencias(); // Salva as preferências após manipulação
+        anunciosView.recarregarAnuncios(); // Recarrega os anúncios na view
     }
 
     public List<Anuncio> getAnuncios() {
