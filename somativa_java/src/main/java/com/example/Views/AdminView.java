@@ -30,6 +30,33 @@ public class AdminView extends JFrame {
         JButton btnAdicionarAnuncio = new JButton("Adicionar Anúncio");
         btnAdicionarAnuncio.addActionListener(e -> abrirJanelaAdicionarAnuncio());
         add(btnAdicionarAnuncio);
+
+        // Botões para abrir mensagens
+        JButton btnRelatorioAnuncios = new JButton("Relatório de Anúncios");
+        JButton btnRelatorioUsuarios = new JButton("Relatório de Usuários");
+        JButton btnRelatorioGostos = new JButton("Relatório de Gostos");
+        JButton btnRelatorioDesgostos = new JButton("Relatório de Desgostos");
+
+        btnRelatorioAnuncios.addActionListener(e -> 
+            JOptionPane.showMessageDialog(this, "Seu relatório foi gerado no caminho Data/anuncios.txt")
+        );
+
+        btnRelatorioUsuarios.addActionListener(e -> 
+            JOptionPane.showMessageDialog(this, "Seu relatório foi gerado no caminho Data/usuarios.txt")
+        );
+
+        btnRelatorioGostos.addActionListener(e -> 
+            JOptionPane.showMessageDialog(this, "Seu relatório foi gerado no caminho Data/gostos.txt")
+        );
+
+        btnRelatorioDesgostos.addActionListener(e -> 
+            JOptionPane.showMessageDialog(this, "Seu relatório foi gerado no caminho Data/desgostos.txt")
+        );
+
+        add(btnRelatorioAnuncios);
+        add(btnRelatorioUsuarios);
+        add(btnRelatorioGostos);
+        add(btnRelatorioDesgostos);
     }
 
     private void abrirJanelaAdicionarAnuncio() {

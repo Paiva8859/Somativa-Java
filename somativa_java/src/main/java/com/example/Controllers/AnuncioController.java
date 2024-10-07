@@ -67,7 +67,7 @@ public class AnuncioController {
     }
 
     // Método para salvar anúncios no arquivo
-    private void salvarAnuncios() {
+    public void salvarAnuncios() {
         File file = new File(FILE_NAME);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Anuncio anuncio : anuncios) {

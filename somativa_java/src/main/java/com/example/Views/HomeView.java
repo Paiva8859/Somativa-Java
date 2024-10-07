@@ -92,6 +92,7 @@ public class HomeView extends JFrame {
             JOptionPane.showMessageDialog(dialog, mensagem);
             if (mensagem.equals("Login bem-sucedido!")) {
                 dialog.dispose();
+                new AnunciosView(email); // Abre a AnunciosView ao fazer login
             }
         });
 
@@ -157,6 +158,8 @@ public class HomeView extends JFrame {
             JOptionPane.showMessageDialog(dialog, mensagem);
             if (mensagem.equals("Login bem-sucedido!")) {
                 dialog.dispose();
+                AdminView adminView = new AdminView();
+                adminView.setVisible(true);
             }
         });
 
