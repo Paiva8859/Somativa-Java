@@ -311,3 +311,7 @@ A interface do administrador permite adicionar novos anúncios e gerar relatóri
 8. **Teste: `testSetAdm()`**
    - **Método**: `setAdm()`
    - **Descrição**: Testa se o método atualiza o status de administrador do usuário corretamente.
+  
+![image](https://github.com/user-attachments/assets/eedd8ede-e483-4f39-8b8f-ede45f3a9362)
+![image](https://github.com/user-attachments/assets/59fbf7c8-ece4-4138-9317-83d7553386d2)
+
