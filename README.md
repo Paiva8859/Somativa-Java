@@ -200,3 +200,114 @@ A interface do administrador permite adicionar novos anúncios e gerar relatóri
 2. Clique em **Selecionar Imagem** para escolher uma imagem do seu sistema.
 3. Clique em **Adicionar** para salvar o anúncio.
 
+# Testes Realizados na Classe Anuncio
+
+## Testes
+
+1. **Teste: `testGetTitulo()`**
+   - **Método**: `getTitulo()`
+   - **Descrição**: Verifica se o método retorna o título correto.
+
+2. **Teste: `testSetTitulo()`**
+   - **Método**: `setTitulo()`
+   - **Descrição**: Testa se o método atualiza o título corretamente.
+
+3. **Teste: `testGetDescricao()`**
+   - **Método**: `getDescricao()`
+   - **Descrição**: Verifica se o método retorna a descrição correta.
+
+4. **Teste: `testSetDescricao()`**
+   - **Método**: `setDescricao()`
+   - **Descrição**: Testa se o método atualiza a descrição corretamente.
+
+5. **Teste: `testGetTagsAsString()`**
+   - **Método**: `getTagsAsString()`
+   - **Descrição**: Verifica se as tags são retornadas como uma string formatada corretamente.
+
+6. **Teste: `testSetTags()`**
+   - **Método**: `setTags()`
+   - **Descrição**: Testa se o método armazena as tags corretamente.
+
+# Testes Realizados na Classe Gostos
+
+## Testes
+
+1. **Teste: `testAdicionarPreferencia()`**
+   - **Método**: `adicionarPreferencia()`
+   - **Descrição**: Adiciona uma preferência e verifica se foi adicionada à lista.
+
+2. **Teste: `testAdicionarPreferenciaDuplicada()`**
+   - **Método**: `adicionarPreferencia()`
+   - **Descrição**: Tenta adicionar a mesma preferência duas vezes e verifica se a lista contém apenas uma instância da tag.
+
+3. **Teste: `testRemoverPreferencia()`**
+   - **Método**: `removerPreferencia()`
+   - **Descrição**: Adiciona uma preferência e depois a remove, verificando se a lista está vazia.
+
+4. **Teste: `testRemoverPreferenciaInexistente()`**
+   - **Método**: `removerPreferencia()`
+   - **Descrição**: Tenta remover uma preferência que não existe e verifica se a lista permanece vazia.
+
+5. **Teste: `testGetGostos()`**
+   - **Método**: `getGostos()`
+   - **Descrição**: Verifica se a lista de gostos está vazia inicialmente e se é atualizada após a adição de uma preferência.
+
+# Testes Realizados na Classe Desgostos
+
+## Testes
+
+1. **Teste: `testAdicionarPreferencia()`**
+   - **Método**: `adicionarPreferencia()`
+   - **Descrição**: Adiciona uma desgosto e verifica se foi adicionada à lista.
+
+2. **Teste: `testAdicionarPreferenciaDuplicada()`**
+   - **Método**: `adicionarPreferencia()`
+   - **Descrição**: Tenta adicionar a mesma desgosto duas vezes e verifica se a lista contém apenas uma instância da tag.
+
+3. **Teste: `testRemoverPreferencia()`**
+   - **Método**: `removerPreferencia()`
+   - **Descrição**: Adiciona uma desgosto e depois a remove, verificando se a lista está vazia.
+
+4. **Teste: `testRemoverPreferenciaInexistente()`**
+   - **Método**: `removerPreferencia()`
+   - **Descrição**: Tenta remover uma desgosto que não existe e verifica se a lista permanece vazia.
+
+5. **Teste: `testGetDesgostos()`**
+   - **Método**: `getDesgostos()`
+   - **Descrição**: Verifica se a lista de desgostos está vazia inicialmente e se é atualizada após a adição de uma desgosto.
+
+# Testes Realizados na Classe Usuario
+
+## Testes
+
+1. **Teste: `testGetNome()`**
+   - **Método**: `getNome()`
+   - **Descrição**: Verifica se o método retorna o nome correto do usuário.
+
+2. **Teste: `testSetNome()`**
+   - **Método**: `setNome()`
+   - **Descrição**: Testa se o método atualiza o nome do usuário corretamente.
+
+3. **Teste: `testGetEmail()`**
+   - **Método**: `getEmail()`
+   - **Descrição**: Verifica se o método retorna o email correto do usuário.
+
+4. **Teste: `testSetEmail()`**
+   - **Método**: `setEmail()`
+   - **Descrição**: Testa se o método atualiza o email do usuário corretamente.
+
+5. **Teste: `testGetSenha()`**
+   - **Método**: `getSenha()`
+   - **Descrição**: Verifica se o método retorna a senha correta do usuário.
+
+6. **Teste: `testSetSenha()`**
+   - **Método**: `setSenha()`
+   - **Descrição**: Testa se o método atualiza a senha do usuário corretamente.
+
+7. **Teste: `testIsAdmInicialmenteFalso()`**
+   - **Método**: `isAdm()`
+   - **Descrição**: Verifica se o usuário não é administrador inicialmente.
+
+8. **Teste: `testSetAdm()`**
+   - **Método**: `setAdm()`
+   - **Descrição**: Testa se o método atualiza o status de administrador do usuário corretamente.

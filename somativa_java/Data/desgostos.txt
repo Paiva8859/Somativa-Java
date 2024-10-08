@@ -1,3 +1,0 @@
-UsuarioTeste,|teste de desgosto
-UsuarioTeste2,|teste de desgosto
-UsuarioTeste3,teste de desgosto

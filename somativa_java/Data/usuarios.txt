@@ -1,4 +1,0 @@
-a,a,a,false
-b,b,b,true
-Igor,Igor@email,12345678,false
-r,r,r,true
