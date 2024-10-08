@@ -18,7 +18,7 @@ public class PreferenciasController {
     private Gostos gostos;
     private Desgostos desgostos;
     private String usuario; // Nome do usuário
-    private AnunciosView anunciosView; // Nova variável
+    private AnunciosView anunciosView; 
 
     public PreferenciasController(List<Anuncio> anuncios, AnunciosView anunciosView, String usuario) {
         this.anuncios = anuncios;

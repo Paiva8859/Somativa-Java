@@ -18,3 +18,4 @@ Música ao Vivo,Venha para os shows de música ao vivo! Artistas incríveis e mu
 Investimentos para Todos,Aprenda a investir e a cuidar das suas finanças pessoais. Dicas práticas para todos!,somativa_java/Data/Imgs/a.jpg,finanças|investimentos
 Decoração Criativa,Transforme sua casa com ideias de decoração criativas e acessíveis. Faça você mesmo!,somativa_java/Data/Imgs/a.jpg,decoração|interiores|design
 Curso de Programação,Aprenda a programar do zero! Cursos online com certificação e acesso a conteúdos exclusivos,somativa_java/Data/Imgs/a.jpg,tecnologia|programação
+aa,aa,somativa_java/Data/Imgs/aa.jpg,aa
